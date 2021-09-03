@@ -25,7 +25,9 @@ module.exports = {
   login: function(req, res) {
     Bag.find({ username: req.body.username }, (err, response) => {
       if (err) return console.error(err);
-      if (response.length === 0) return res.send('USER DOES NOT EXIST - Create a new account.');
+      if (response.length === 0) {
+        return res.json(response);
+      }
       bcrypt.compare(req.body.password, response[0].password, (err, passwordMatch) => {
         if (!passwordMatch) return res.send('PASSWORDS DID NOT MATCH - Please re enter your password.')
         if (passwordMatch) {

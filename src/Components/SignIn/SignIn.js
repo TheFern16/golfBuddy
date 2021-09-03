@@ -38,6 +38,7 @@ function SignIn(props) {
       props.setLogoDisplay({ boolean: true });
       if (event.target.value === 'Log In') {
         return props.loginUser({ username, password }, '/api/login', (data) => {
+          console.log("logged in")
           props.setLogoDisplay({ boolean: false });
           history.push('/bagCreator');
         });

@@ -82,11 +82,17 @@ class App extends React.Component {
     fetch(path, request)
       .then(res => res.json())
       .then(data => {
-        if (typeof data === 'object') this.handleBagResponseFromServer(data);
-        else console.log('USER EXISTS', data);
+        if (data.length === 0) {
+          return this.logoutUser();
+        }
+        if (typeof data === 'object') {
+          this.handleBagResponseFromServer(data);
+        }
         cb(data);
       })
-      .catch(err => console.error('err', err));
+      .catch(err => {
+        console.error('err', err)
+      });
   };
 
   logoutUser() {
